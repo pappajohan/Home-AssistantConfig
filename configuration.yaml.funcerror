@@ -1,0 +1,158 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 59.2897
+  longitude: 15.1825
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 38
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Stockholm 
+
+  customize:
+   - entity_id: switch.bryggaren
+     icon: mdi:coffee
+   - entity_id: switch.hallsensor
+     icon: mdi:eye-outline
+   - entity_id: switch.*uttag
+     hidden: true
+   - entity_id: switch.myslampor
+     icon: mdi:lamp
+   - entity_id: switch.kyl
+     icon: mdi:fridge
+   - entity_id: sensor.bryggaren_watt
+     hidden: true
+   - entity_id: sensor.hallampa_watt
+     hidden: true
+
+tellduslive:
+  public_key: !secret public_key
+  private_key: !secret private_key
+  token: !secret token
+  token_secret: !secret token_secret
+  update_interval:
+    seconds: 5
+
+device_tracker:
+#  - platform: icloud
+#   username: !secret username
+#    password: !secret password
+#    account_name: Pappa Johan
+  - platform: snmp
+    host: 192.168.1.1
+    community: !secret community
+    baseoid: !secret baseoid
+
+http:
+  # Uncomment this to add a password (recommended!)
+  #  api_password: !secret api_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+input_boolean:
+  blink:
+    initial: off
+    icon: mdi:spotlight
+
+automation:
+#- alias: 'Blinka Extralampa'
+#  trigger:
+#    platform: state
+#    entity_id: input_boolean.blink
+#    state: 'on'
+#  action:
+#    service: script.turn_on
+#    entity_id: script.blinka
+
+# Washer Notification Sequence
+
+- alias: 'Kaffe On'
+  trigger:
+    platform: state
+    entity_id: sensor.kaffe_klar
+    from: 'True'
+    to: 'False'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.blink
+
+- alias: 'Kaffe Done'
+  trigger:
+    platform: state
+    entity_id: sensor.kaffe_klar
+    from: 'False'
+    to: 'True'
+    for:
+      minutes: 1
+  condition:
+      condition: state
+      entity_id: input_boolean.blink
+      state: 'on'
+  action:
+    - service: script.turn_on
+      entity_id: script.blinka
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.blink
+
+script:
+  blinka:
+    alias: Blinka vuttag
+    sequence:
+    - alias: Extralampa On
+      service: homeassistant.turn_on
+      data:
+        entity_id: switch.extralampa
+    - delay:
+        seconds: 1
+    - alias: Extralampa Off
+      service: homeassistant.turn_off
+      data:
+        entity_id: switch.extralampa
+    - alias: loop Extralampa
+      service: script.turn_on
+      data:
+        entity_id: script.blinka_loop
+  blinka_loop:
+    alias: Blinka loop
+    sequence:
+     - condition: state
+       entity_id: input_boolean.blink
+       state: 'on'
+     - delay:
+         seconds: 1
+     - service: script.turn_on
+       data:
+          entity_id: script.blinka
+ 
+# Weather Prediction
+sensor:
+  - platform: yr
+  - platform: template
+    sensors:
+      kaffe_klar:
+        value_template: "{{ states('sensor.bryggaren_watt_2') | int < 50 }}"
+
+# Text to speech
+tts:
+  platform: google
+
