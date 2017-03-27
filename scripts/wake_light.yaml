@@ -1,0 +1,36 @@
+alias: wake_light
+sequence:
+  - service: light.turn_on
+    data:
+      entity_id: light.sovrumslampa
+      brightness: 10
+  - delay:
+      seconds: 10
+  - service: light.turn_on
+    data:
+      entity_id: light.sovrumslampa
+      brightness: 11
+  - delay:
+      seconds: 10
+  - service: light.turn_on
+    data:
+      entity_id: light.sovrumslampa
+      brightness: 12
+  - delay:
+      seconds: 10
+  - service: light.turn_on
+    data:
+      entity_id: light.sovrumslampa
+      brightness: 13
+  - delay:
+      seconds: 10
+  - service: light.turn_on
+    data:
+      entity_id: light.sovrumslampa
+      brightness: 14
+  - delay:
+      seconds: 10
+  - service: light.turn_on
+    data:
+      entity_id: light.sovrumslampa
+      brightness: 95

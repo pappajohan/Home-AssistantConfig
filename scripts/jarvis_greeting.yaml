@@ -1,0 +1,7 @@
+alias: Jarvis Greeting
+sequence:
+  - service: tts.google_say
+    data_template:
+      entity_id: media_player.pappas_sovrum
+      message: God morgon. Just nu är det {{states.sensor.yr_temperature.state|round}} grader i Örebro och {{states.sensor.hallsensor_temperature.state|round}} i hallen. Det regnar {{states.sensor.yr_precipitation.state|round}} millimeter och blåser {{states.sensor.yr_wind_speed.state|round}} meter per sekund. Det är {{states.sensor.yr_cloudiness.state|round}} procent molnighet.
+

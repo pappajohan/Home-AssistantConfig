@@ -12,20 +12,22 @@ homeassistant:
   time_zone: Europe/Stockholm 
 
   customize:
-   - entity_id: switch.bryggaren
-     icon: mdi:coffee
-   - entity_id: switch.hallsensor
-     icon: mdi:eye-outline
-   - entity_id: switch.*uttag
-     hidden: true
-   - entity_id: switch.myslampor
-     icon: mdi:lamp
-   - entity_id: switch.kyl
-     icon: mdi:fridge
-   - entity_id: sensor.bryggaren_watt
-     hidden: true
-   - entity_id: sensor.hallampa_watt
-     hidden: true
+    switch.bryggaren:
+      icon: mdi:coffee
+    switch.hallsensor:
+      icon: mdi:eye-outline
+    switch.myslampor:
+      icon: 'mdi:lamp'
+    switch.kyl:
+      icon: 'mdi:fridge'
+    sensor.bryggaren_watt:
+      hidden: true
+    sensor.hallampa_watt:
+      hidden: true
+  customize_domain: {}
+  customize_glob:
+    switch.*uttag:
+      hidden: true
 
 tellduslive:
   public_key: !secret public_key
@@ -33,7 +35,11 @@ tellduslive:
   token: !secret token
   token_secret: !secret token_secret
   update_interval:
-    seconds: 5
+    seconds: 15
+
+config:
+
+group: !include groups.yaml
 
 device_tracker:
 #  - platform: icloud
@@ -44,6 +50,41 @@ device_tracker:
     host: 192.168.1.1
     community: !secret community
     baseoid: !secret baseoid
+    interval_seconds: 30
+    consider_home: 180
+  - platform: nmap_tracker
+    hosts: 192.168.1.40-99
+    home_interval: 5
+
+zone 2:
+  name: Work
+  latitude: 59.301036
+  longitude: 15.205736
+  radius: 125
+  icon: mdi:worker
+
+zone 3:
+  name: Tullängen
+  latitude: 59.260261
+  longitude: 15.207682
+  radius: 350
+  icon: mdi:school
+
+zone 4:
+  name: Engelska
+  latitude: 59.265135
+  longitude: 15.235175
+  radius: 250
+  icon: mdi:school
+
+media_player:
+  - platform: denonavr
+    host: 192.168.1.21
+    name: Gymmet
+#  - platform: apple_tv
+#    host: 192.168.1.22
+#    login_id: 00000000-48e0-6aea-8129-241950454401
+#    name: Apple TVardagsrum
 
 http:
   # Uncomment this to add a password (recommended!)
@@ -55,7 +96,7 @@ http:
 updater:
 
 # Discover some devices automatically
-#discovery:
+discovery:
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -78,4 +119,3 @@ sensor:
 # Text to speech
 tts:
   platform: google
-

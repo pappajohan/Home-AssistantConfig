@@ -11,21 +11,14 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Stockholm 
 
-  customize:
-   - entity_id: switch.bryggaren
-     icon: mdi:coffee
-   - entity_id: switch.hallsensor
-     icon: mdi:eye-outline
-   - entity_id: switch.*uttag
-     hidden: true
-   - entity_id: switch.myslampor
-     icon: mdi:lamp
-   - entity_id: switch.kyl
-     icon: mdi:fridge
-   - entity_id: sensor.bryggaren_watt
-     hidden: true
-   - entity_id: sensor.hallampa_watt
-     hidden: true
+  customize: !include customize.yaml
+
+script: !include_dir_named scripts
+automation: !include_dir_merge_list automation/
+zone: !include zones.yaml
+sensor: !include sensors.yaml
+device_tracker: !include device_tracker.yaml
+
 
 tellduslive:
   public_key: !secret public_key
@@ -33,18 +26,58 @@ tellduslive:
   token: !secret token
   token_secret: !secret token_secret
   update_interval:
-    seconds: 5
+    seconds: 15
 
-device_tracker:
-#  - platform: icloud
-#    username: !secret username
-#    password: !secret password
-#    account_name: Pappa Johan
-  - platform: snmp
-    host: 192.168.1.1
-    community: !secret community
-    baseoid: !secret baseoid
+recorder:
+  purge_days: 15
+  exclude:
+    domains:
+      - automation
+      - weblink
+      - updater
+    entities:
+      - sun.sun   # Don't record sun data
+      - sensor.last_boot
+      - sensor.date
 
+google:
+  client_id: !secret client_id
+  client_secret: !secret client_secret
+  track_new_calendar: true
+
+config:
+
+input_select:
+  radio_station:
+    name: Radio Station
+    options:
+      - Bandit Rock
+      - Rix FM
+      - P3
+      - Senaste Ekot
+      - None
+    initial: None
+    icon: mdi:radio
+  radio_player:
+    name: Radio Player
+    options:
+      - Gym
+      - Sovrum
+      - None
+    initial: None
+    icon: mdi:airplay
+
+media_player:
+  - platform: denonavr
+    host: 192.168.1.21
+    name: Gymmet
+  - platform: apple_tv
+    host: 192.168.1.22
+    login_id: !secret login_id
+    name: Apple TVardagsrum
+  - platform: cast
+    host: 192.168.1.25
+    name: Pappas sovrum
 http:
   # Uncomment this to add a password (recommended!)
   # api_password: !secret api_password
@@ -52,13 +85,13 @@ http:
   # base_url: example.duckdns.org:8123
 
 # Checks for available updates
-updater:
+#updater:
 
 # Discover some devices automatically
-#discovery:
+discovery:
 
 # Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
+#conversation:
 
 # Enables support for tracking state changes over time.
 history:
@@ -69,13 +102,7 @@ logbook:
 # Track the sun
 sun:
 
-#automation:
- 
-# Weather Prediction
-sensor:
-  - platform: yr
-
 # Text to speech
 tts:
   platform: google
-
+  language: sv

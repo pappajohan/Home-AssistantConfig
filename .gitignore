@@ -3,7 +3,7 @@
 *.csr
 *.crt
 *.key
-icloud
+icloud/johanstromquistwipsmilse
 www
 OZW_Log.txt
 home-assistant.log

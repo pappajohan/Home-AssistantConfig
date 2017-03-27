@@ -1,0 +1,79 @@
+
+- cal_id: segelsallskapetfram@gmail.com
+  entities:
+  - device_id: segelsallskapetframgmailcom
+    name: segelsallskapetfram@gmail.com
+    track: false
+
+- cal_id: 4lq9m75hqpioqu1kje0akmha6g@group.calendar.google.com
+  entities:
+  - device_id: sebas_skolschema
+    name: Sebas skolschema
+    track: false
+
+- cal_id: 1qa8m86v5u2m52fh6eq9or1va0@group.calendar.google.com
+  entities:
+  - device_id: feriados_argentinos
+    name: Feriados Argentinos
+    track: false
+
+- cal_id: utboieg6p5tqrl3djip3rvigco@group.calendar.google.com
+  entities:
+  - device_id: tjejernas_skolschema
+    name: Tjejernas skolschema
+    track: false
+
+- cal_id: qe7f431lecf7gluel2hiqpn01c@group.calendar.google.com
+  entities:
+  - device_id: fam_stromquist
+    name: "Fam. Str\xF6mquist"
+    track: false
+
+- cal_id: flyingsister@hotmail.com
+  entities:
+  - device_id: flyingsisterhotmailcom
+    name: flyingsister@hotmail.com
+    track: false
+
+- cal_id: g0k1sv1gsdief8q28kvek83ps4@group.calendar.google.com
+  entities:
+  - device_id: week_numbers_sundays
+    name: Week Numbers (Sundays)
+    track: false
+
+- cal_id: miriam@stromquist.se
+  entities:
+  - device_id: miriamstromquistse
+    name: miriam@stromquist.se
+    track: false
+
+- cal_id: '#contacts@group.v.calendar.google.com'
+  entities:
+  - device_id: contacts
+    name: Contacts
+    track: false
+
+- cal_id: sv.swedish#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: helgdagar_i_sverige
+    name: Helgdagar i Sverige
+    track: false
+
+- cal_id: ht3jlfaac5lfd6263ulfh4tql8@group.calendar.google.com
+  entities:
+  - device_id: phases_of_the_moon
+    name: Phases of the Moon
+    track: false
+
+- cal_id: p#weather@group.v.calendar.google.com
+  entities:
+  - device_id: weather_sabadell
+    name: 'Weather: sabadell'
+    track: false
+
+- cal_id: johan.stromquist@gmail.com
+  entities:
+  - device_id: johan_stromquist
+    name: "Johan Str\xF6mquist"
+    track: true
+    search: "Vakna"

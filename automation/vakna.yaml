@@ -1,0 +1,105 @@
+  - alias: Vakna
+    trigger:
+      platform: state
+      entity_id: calendar.johan_stromquist
+      to: 'on'
+    action:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.pappas_sovrum
+          volume_level: '0.05'
+      - service: media_player.play_media
+        data:
+          entity_id: media_player.pappas_sovrum
+          media_content_id: http://fm03-icecast.mtg-r.net/fm03_mp3
+          media_content_type: 'audio/mp4' 
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 10
+      - delay: '00:01:00'
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.pappas_sovrum
+          volume_level: '0.10'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 12
+      - delay: '00:01:00'
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.pappas_sovrum
+          volume_level: '0.15'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 14
+      - delay: '00:01:00'
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.pappas_sovrum
+          volume_level: '0.20'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 16
+      - delay: '00:01:00'
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.pappas_sovrum
+          volume_level: '0.25'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 18
+      - delay: '00:01:00'      
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.pappas_sovrum
+          volume_level: '0.30'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 20
+      - delay: '00:01:00'      
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.pappas_sovrum
+          volume_level: '0.35'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 25
+      - delay: '00:01:00'      
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.pappas_sovrum
+          volume_level: '0.40'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 30
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.pappas_sovrum
+          message: God morgon. Just nu är det {{states.sensor.yr_temperature.state|round}} grader i Örebro och {{states.sensor.hallsensor_temperature.state|round}} i hallen. Det regnar {{states.sensor.yr_precipitation.state|round}} millimeter och blåser {{states.sensor.yr_wind_speed.state|round}} meter per sekund. Det är {{states.sensor.yr_cloudiness.state|round}} procent molnighet.
+      - delay: '00:00:22'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 50
+      - service: media_player.play_media
+        data:
+          entity_id: media_player.pappas_sovrum
+          media_content_id: http://sverigesradio.se/topsy/senastepodd/3795.mp3
+          media_content_type: 'audio/mp4'
+      - delay: '00:03:00'
+      - service: light.turn_on
+        data:
+          entity_id: light.sovrumslampa
+          brightness: 200          
+      - service: tts.google_say
+        entity_id: media_player.pappas_sovrum          
+        data:
+          message: 'Johan, nu är det dags att kliva upp.'

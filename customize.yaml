@@ -1,0 +1,16 @@
+  switch.bryggaren:
+    icon: mdi:coffee
+  switch.hallsensor:
+    icon: mdi:eye-outline
+  switch.myslampor:
+    icon: 'mdi:lamp'
+  switch.kyl:
+    icon: 'mdi:fridge'
+  sensor.bryggaren_watt:
+    hidden: true
+  sensor.hallampa_watt:
+    hidden: true
+  switch.matrumsuttag:
+    hidden: true
+  switch.vardagsrumsuttag:
+    hidden: true

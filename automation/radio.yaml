@@ -1,0 +1,45 @@
+  - alias: Stop Streaming Radio
+    trigger:
+      - platform: state
+        entity_id: input_select.radio_station
+        to: "None"
+    action:
+      service: media_player.turn_off
+      data_template:
+        entity_id: >
+            {% if is_state("input_select.radio_player", "Gym") %}
+              media_player.gymmet
+            {%-elif is_state("input_select.radio_player", "Sovrum") %}
+              media_player.pappas_sovrum
+            {% else %}
+              none
+            {% endif %}
+
+  - alias: Stream Radio - Template
+    trigger:
+      - platform: state
+        entity_id: input_select.radio_station
+    action:
+      - service: media_player.play_media
+        data_template:
+          entity_id: >
+            {% if is_state("input_select.radio_player", "Gym") %}
+              media_player.gymmet
+            {%-elif is_state("input_select.radio_player", "Sovrum") %}
+              media_player.pappas_sovrum
+            {% else %}
+              none
+            {% endif %}
+          media_content_id: >
+            {% if is_state("input_select.radio_station", "Bandit Rock") %}
+              http://fm02-icecast.mtg-r.net/fm02_mp3
+            {%-elif is_state("input_select.radio_station", "Rix FM") %}
+              http://fm01-icecast.mtg-r.net/fm01_mp3
+            {%-elif is_state("input_select.radio_station", "P3") %}
+              http://sverigesradio.se/topsy/direkt/164-hi.aac
+            {%-elif is_state("input_select.radio_station", "Senaste Ekot") %}
+              http://sverigesradio.se/topsy/senastepodd/3795.mp3
+            {% else %}
+              none
+            {% endif %}
+          media_content_type: 'audio/mp4'

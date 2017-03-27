@@ -1,0 +1,22 @@
+- name: Work
+  latitude: 59.301036
+  longitude: 15.205736
+  radius: 125
+  icon: mdi:worker
+
+- name: Tullängen
+  latitude: 59.260261
+  longitude: 15.207682
+  radius: 350
+  icon: mdi:school
+
+- name: Engelska
+  latitude: 59.265135
+  longitude: 15.235175
+  radius: 250
+  icon: mdi:school
+
+- name: Xet
+  latitude: 59.287814
+  longitude: 15.182154
+  radius: 55
